@@ -1,7 +1,7 @@
 # Project Memory (项目记忆与状态)
 
-## 当前阶段: MVP 重构完成 (Agentic 化)
-FindyJoby 简历-岗位匹配系统已经完成了从“固定流水线”到“智能体自主编排”的底层架构升级。
+## 当前阶段: 架构定型，进入部署阶段
+FindyJoby 简历-岗位匹配系统已完成 ReAct Agent 架构重构 (v0.1.0-alpha)，代码已推送至 GitHub (`Seonyannn/findy_joby`)。下一步是配置 Zeabur 部署环境并接入 LLM 环境变量。
 
 ## 当前业务流转逻辑
 1. 用户在前端上传简历，触发初步解析（不调用 LLM，仅提取生肉文本）并缓存为 `resumeText`。

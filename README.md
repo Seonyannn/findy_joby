@@ -1,23 +1,31 @@
 # FindyJoby 🤖
 
-FindyJoby 是一个基于大模型自主编排架构（Agentic ReAct）开发的智能简历-岗位撮合系统。
+> **AI-native Job Matching Agent** —— 简历与岗位的智能撮合专家。
 
-## ✨ 核心特性
+FindyJoby 是一款基于大模型自主编排 (ReAct) 架构的求职辅助工具。它能够自动解析复杂的简历内容，并深度抓取目标招聘页面的岗位需求，通过 AI 推理引擎实现精准的简历-岗位匹配，大幅提升求职效率。
 
-- **Agentic 架构**：抛弃传统流水线，系统自主决定调用解析工具与抓取工具。
-- **简历智能解析 (Skill)**：自动提取本地简历文件的纯文本信息。
-- **动态网页穿透 (Skill)**：内置无头浏览器 (Puppeteer)，支持抓取现代 SPA 动态招聘网页的真实 JD 数据。
-- **多维匹配推理 (Action)**：大模型中枢根据双端数据自动计算匹配度并输出结构化结果。
+---
 
-## 🛠 技术栈
+## ✨ 核心优势
 
-- **框架**：Next.js (App Router) + React
-- **UI 组件**：TailwindCSS + Shadcn/ui
-- **爬虫底座**：Puppeteer + Cheerio
-- **AI 编排**：自研 Agent Loop 控制流
+- **Agentic 架构**：内置 ReAct (Reason + Act) 循环，系统自主判断何时解析简历、何时抓取 JD，无需手动介入。
+- **智能工具链 (Skills)**：
+  - `parse_resume`：基于语义解析的简历结构化工具。
+  - `scrape_website`：集成了 Puppeteer 的动态网页穿透能力，轻松攻克 SPA 招聘网站。
+- **精准匹配**：利用 LLM 强大的逻辑推理能力，进行多维度岗位评估。
+- **容器化部署**：支持 Docker 一键部署，运行环境高度可控。
 
-## 🚀 本地启动
+---
 
-1. 安装依赖：
-```bash
-npm install
+## 🏗 架构蓝图
+
+我们采用模块化的 [Skills + Actions] 架构：
+
+```mermaid
+graph TD
+    User[用户输入] --> Agent[Agent 中枢]
+    Agent -->|调用| Skill1[Skills: parse_resume]
+    Agent -->|调用| Skill2[Skills: scrape_website]
+    Skill1 -->|返回 JSON| Agent
+    Skill2 -->|返回 JSON| Agent
+    Agent -->|推理匹配| Result[最终推荐列表]
