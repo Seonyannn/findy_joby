@@ -3,7 +3,6 @@
 import { useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import type { ResumeData } from "@/lib/schemas";
 
 type ParseStatus = "idle" | "parsing" | "parsed" | "error";
 
@@ -11,14 +10,12 @@ interface ResumeUploadProps {
   file: File | null;
   onFileChange: (file: File | null) => void;
   parseStatus: ParseStatus;
-  resumeData: ResumeData | null;
 }
 
 export function ResumeUpload({
   file,
   onFileChange,
   parseStatus,
-  resumeData,
 }: ResumeUploadProps) {
   const handleDrop = useCallback(
     (e: React.DragEvent) => {
@@ -48,10 +45,10 @@ export function ResumeUpload({
     idle: null,
     parsing: (
       <Badge variant="secondary" className="animate-pulse">
-        解析中...
+        提取中...
       </Badge>
     ),
-    parsed: <Badge className="bg-green-600 hover:bg-green-700">已解析</Badge>,
+    parsed: <Badge className="bg-green-600 hover:bg-green-700">已就绪</Badge>,
     error: <Badge variant="destructive">解析失败</Badge>,
   };
 
@@ -81,19 +78,6 @@ export function ResumeUpload({
               <p className="text-xs text-muted-foreground">
                 {(file.size / 1024).toFixed(1)} KB
               </p>
-              {resumeData && (
-                <div className="text-xs text-muted-foreground space-y-0.5">
-                  <p>
-                    {resumeData.name}
-                    {resumeData.contact?.location &&
-                      ` · ${resumeData.contact.location}`}
-                  </p>
-                  <p>
-                    {resumeData.skills.slice(0, 5).join(" / ")}
-                    {resumeData.skills.length > 5 && " ..."}
-                  </p>
-                </div>
-              )}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
